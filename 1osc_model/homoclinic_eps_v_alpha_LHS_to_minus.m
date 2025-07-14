@@ -1,0 +1,43 @@
+% This code is created by Hassan Alkhayuon to the homoclinic bifurcation 
+% in the eps vs alpha space
+clear
+warning off
+addpath('../')
+
+% Colour-blind friendly colour
+[red,yellow,green,blue ] = ...
+    Colour_blind_friendly_colours();
+
+
+% alpha_init = -0.057; % phase shift.
+
+
+EPSS_init = 0.019;
+alpha_scan = linspace(0.55,-1,100);
+for ind = 1:99
+    alpha = alpha_scan(ind);
+    gup_fun =@(EPSS) homoclinic_gap(EPSS,alpha);
+    EPSS_init = fzero(gup_fun,EPSS_init);
+    EPSS_arr(ind) = EPSS_init;
+    ind
+end
+
+%-1, 0.0173785;
+%  -1.02, 0.0120045
+%  -1.04, 0.0035001725;
+% ]
+
+%%
+alpha_scan = [alpha_scan, -1.02, -1.04, -1.051166];
+EPSS_arr = [EPSS_arr(1:99), 0.0173785, 0.0120045, 0.0035001725, 0];
+figure(3);
+hold on
+plot(alpha_scan,EPSS_arr)
+
+%% ODE function
+
+
+
+
+
+

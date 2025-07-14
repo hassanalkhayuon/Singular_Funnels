@@ -1,0 +1,50 @@
+# ode equations ofOne phase osclator with adaptaion mu
+
+mu'  = EPSS*(-mu + 10*( 1 - sin(phi + alpha) ) )
+phi' = ome + mu - sin(phi)
+
+
+
+
+# Initial States
+init mu =-1, phi = 0 
+
+# parameters varied for bifurcations.
+par alpha = -0.85, EPSS = 0.02, 
+
+# other parameters
+ome = -4
+
+
+
+
+# numarical parameters for XPPAut
+
+#integration 
+@ total=50, 
+@ Dt=0.01,
+
+# discretization of periodic orbits
+@ Ntst=200, 
+
+# maximum number of steps taken along any branch
+@ Nmax= 1500, 
+@ NPr = 100,
+
+# max min and step size
+@ Dsmin=0.00001, Ds=-0.01, Dsmax=0.01
+
+# main parameter min and max
+@ ParMin=-1.5, ParMax=-0.85, 
+
+# solution norm min and max
+@ NormMin=0, NormMax=100000,
+
+#other AUTO parameters 
+@ epsu=1e-7, epsl=1e-7, epss=1e-7
+
+# XPP graphical options
+@ axes=2, xplot=mu, yplot=phi
+@ xlo=-4, xhi=15, ylo=0, yhi=6.29
+
+done 
