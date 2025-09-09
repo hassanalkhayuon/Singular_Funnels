@@ -1,22 +1,13 @@
-# ode equations ofOne phase osclator with adaptaion mu
+# ode equations of One phase osclator with adaptaion mu
 
-mu'  = EPSS*(-mu + 10*( 1 - sin(phi + alpha) ) )
+mu'  = EEPS * ( -mu + 10 * ( 1 - sin( phi+ alpha ) ) )
 phi' = ome + mu - sin(phi)
 
-
-
-
 # Initial States
-init mu =-1, phi = 0 
+init mu=-1, phi=0 
 
 # parameters varied for bifurcations.
-par alpha = -0.85, EPSS = 0.02, 
-
-# other parameters
-ome = -4
-
-
-
+par alpha=-0.85, EEPS=0.02, ome=-4
 
 # numarical parameters for XPPAut
 
@@ -28,8 +19,8 @@ ome = -4
 @ Ntst=200, 
 
 # maximum number of steps taken along any branch
-@ Nmax= 1500, 
-@ NPr = 100,
+@ Nmax=1500, 
+@ NPr=100,
 
 # max min and step size
 @ Dsmin=0.00001, Ds=-0.01, Dsmax=0.01
