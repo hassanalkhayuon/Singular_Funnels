@@ -32,7 +32,7 @@ basin_volume_e = zeros(size(EPS_arr));
 basin_volume_n = zeros(size(EPS_arr));
 
 
-number_of_simulations = 10000;
+number_of_simulations = 100;
 % rng(0)
 
 % figure(1);

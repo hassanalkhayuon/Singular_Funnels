@@ -25,6 +25,7 @@ res_Del = 100;
 Del_arr = linspace(0,1,res_Del);
 
 e_temp = [1.0307; 1.0307; 4.8576];
+e_temp = [5; 5; 4.8576];
 e_mat = NaN(3,res_Del);
 eig_val = NaN(3,res_Del);
 
@@ -48,6 +49,8 @@ opts = odeset('RelTol',1e-5,'AbsTol',1e-5,'Events',...
 JJ = MyJacobian(fun,e_mat(:,end));
 [eig_vic, eig_val] = eig(JJ);
 
+
+
 v1 = eig_vic(:,1);
 v2 = eig_vic(:,2);
 v3 = eig_vic(:,3);
@@ -65,7 +68,7 @@ for ind_man = 1:res_man
     mu = vare(:,3);
     phi1 = mod(vare(:,1),2*pi);
     phi2 = mod(vare(:,2),2*pi);
-    if abs(phi1-c)<=0.0001
+    if abs(phi1-c)<=0.001
         plot(mu, phi2,'.b')
         drawnow
         disp(ind_man)

@@ -21,13 +21,13 @@ opts = odeset('RelTol',1e-5,'AbsTol',1e-5);
 
 
 % initcond = [pi; pi/2; 15];
-initcond = [1.2976; 5.06437; -0.137124];
+initcond = [0; 0; 10.0302];
 % initcond = [1.2461; 3.2; 3.8];
 
 
 % Loop over epsilon values
-Epss = 0.08;
-tend = 100 / Epss;
+Epss = 0.1;
+tend = 1.1;
 
 Del = 1.5;
 ome = [ome2 + Del; ome2];
@@ -35,7 +35,7 @@ ome = [ome2 + Del; ome2];
 par = [ome; kappa; eta; alpha; Epss];
 
 odefun = @(t, var) Adap_phase_osc_N(var, par, N);
-[~, var] = ode15s(odefun, [0 tend], initcond, opts);
+[t, var] = ode15s(odefun, [0 tend], initcond, opts);
 % [~, var] = ode15s(odefun, [0 tend], var_temp(end,:), opts);
 
 mu = var(:,3);
@@ -44,9 +44,9 @@ phi2 = mod(var(:,2),2*pi);
 
 %%
 figure
-plot3(mu,phi1,phi2,'.k')
-xlim([0,2*pi])
-ylim([0,2*pi])
+plot(mu,var(:,2), '-k')
+% xlim([0,2*pi])
+% ylim([0,2*pi])
 %%
 % Scan_plot = pcolor(Eps_arr,Del_arr,XXX);
 % Scan_plot.LineStyle = "none";

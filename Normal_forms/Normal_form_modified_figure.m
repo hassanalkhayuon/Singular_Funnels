@@ -75,7 +75,7 @@ potential_p = -1*int(b*tanh(mu) - mu + a + 2*b, mu);
 
 potential_func_p = matlabFunction(potential_p);
 
-fplot(potential_func_p,[-10, 10],'-k','LineWidth',2)
+% fplot(potential_func_p,[-10, 10],'-k','LineWidth',2)
 
 %% shading matrix 
 

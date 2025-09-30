@@ -12,7 +12,7 @@ alpha = par(5);
 
 par = [ome;  kappa; eta; alpha; mu];
 
-res_pot = 60;
+res_pot = 200;
 
 mu_arr = linspace(-1,mu,res_pot);
 g_bar_arr = zeros(size(mu_arr));

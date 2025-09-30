@@ -12,9 +12,9 @@ warning off
 %% Parameters
 
 eta = 10; % adaptive parameters
-alpha = -1.2; %-0.97691488076; %2.7; 2.4330401; % phase shift.
+alpha = pi/2; %-0.97691488076; %2.7; 2.4330401; % phase shift.
 
-EPS = 0.04;
+EPS = 0.01;
 
 % addional point 
 % [-1, 0.0173785;
@@ -94,9 +94,9 @@ plot(mu02,phi02,'--','Color',[0.6 0.6 0.6])
 plot(mu03,phi03,'-','Color',[0.6 0.6 0.6])
 
 % stable manifold of the saddel
-initcond_m = [phi_e2 mu_e2] - 0.001.*[0 1];
+initcond_m = [phi_e1 mu_e1] - 0.001.*[0 1];
 
-rot_total = 200;
+rot_total = 7;
 tstart = 100;
 
 for ind = 1:rot_total+1
@@ -109,7 +109,7 @@ for ind = 1:rot_total+1
     plot(mu, phi,'-','Color',[0.00,0.45,0.74],'LineWidth',2)
 end
 
-initcond_p = [phi_e2 mu_e2] + 0.0001.*[0 1];
+initcond_p = [phi_e1 mu_e1] + 0.0001.*[0 1];
 
 
 for ind = 1:rot_total
@@ -124,34 +124,34 @@ for ind = 1:rot_total
 end
 
 % unstable manifold of the saddel
-initcond_m = [phi_e2 mu_e2] - 0.001.*[0 1];
-
-rot_total = 1000;
-tstart = 100;
-
-for ind = 1:rot_total+1
-
-    [t, var] = ode15s(odefun,[0 tstart],initcond_m,opts);
-
-    initcond_m = [mod(var(end,1),2*pi), var(end,2)];
-    phi = var(:,1);
-    mu = var(:,2);
-    plot(mu, phi,'-k','LineWidth',1)
-end
-
-initcond_p = [phi_e2 mu_e2] + 0.0001.*[0 1];
-
-
-for ind = 1:rot_total
-
-    [t, var] = ode15s(odefun,[0 tstart],initcond_p,opts);
-
-    initcond_p = [mod(var(end,1),2*pi), var(end,2)];
-    phi = var(:,1);
-    mu = var(:,2);
-
-    plot(mu, phi,'-k','LineWidth',1)
-end
+% initcond_m = [phi_e2 mu_e2] - 0.001.*[0 1];
+% 
+% rot_total = 1000;
+% tstart = 100;
+% 
+% for ind = 1:rot_total+1
+% 
+%     [t, var] = ode15s(odefun,[0 tstart],initcond_m,opts);
+% 
+%     initcond_m = [mod(var(end,1),2*pi), var(end,2)];
+%     phi = var(:,1);
+%     mu = var(:,2);
+%     plot(mu, phi,'-k','LineWidth',1)
+% end
+% 
+% initcond_p = [phi_e2 mu_e2] + 0.0001.*[0 1];
+% 
+% 
+% for ind = 1:rot_total
+% 
+%     [t, var] = ode15s(odefun,[0 tstart],initcond_p,opts);
+% 
+%     initcond_p = [mod(var(end,1),2*pi), var(end,2)];
+%     phi = var(:,1);
+%     mu = var(:,2);
+% 
+%     plot(mu, phi,'-k','LineWidth',1)
+% end
 
 
 % trajectories
@@ -173,9 +173,9 @@ plot(...
 plot(...
     mu_e1,phi_e1,'ok','MarkerSize',6,'LineWidth',2)
 plot(...
-    mu_e2,phi_e2,'.w','MarkerSize',25)
-plot(...
-    mu_e2,phi_e2,'ok','MarkerSize',6,'LineWidth',2)
+    mu_e2,phi_e2,'.k','MarkerSize',25)
+% plot(...
+%     mu_e2,phi_e2,'ok','MarkerSize',6,'LineWidth',2)
 
 
 box on

@@ -26,14 +26,14 @@ opts = odeset('RelTol',1e-5,'AbsTol',1e-5,...
 
 %% simulations
 
-EPS_res = 25;
+EPS_res = 100;
 EPS_arr = linspace(1e-2,1e-1,EPS_res);
 
 % the volume of the periodic orbit 
 basin_volume = zeros(size(EPS_arr));
 
 
-number_of_simulations = 10000;
+number_of_simulations = 100000;
 % rng(0)
 
 % figure(1);
@@ -61,7 +61,7 @@ for ind_EPS = 1:EPS_res
         phi8_init = rr(8).*2.*pi;
         phi9_init = rr(9).*2.*pi;
         phi10_init = rr(10).*2.*pi;
-        mu_init = rr(11)*4 - 4;
+        mu_init = rr(11)*10 - 10;
 
         initcond = [phi1_init;
             phi2_init;
@@ -85,7 +85,7 @@ for ind_EPS = 1:EPS_res
         % hold on
         % plot(t,var(:,N+1))
         % drawnow 
-        if var(end,N+1) > 7
+        if var(end,N+1) > 8
             basin_vol = basin_vol + 1;
         end
 
@@ -94,38 +94,40 @@ for ind_EPS = 1:EPS_res
     disp(ind_EPS)
     
 end
-% save("MC_basin_vul_2osc_unsync_1mil.mat")
+save("MC_basin_vul_10osc_unsync.mat")
 
 %% plotting
-figure(14);
+figure(15);
 hold on 
 
-plot(EPS_arr,(basin_volume),'.-','MarkerSize',20)
+plot(EPS_arr,(basin_volume),'-k',LineWidth=2)
+set(gca,'FontSize',17)
 % plot(1./EPS_arr,log(basin_volume),'.-','MarkerSize',20)
-
+yscale log
+ylim([1e-4 1e-1])
 
 %% event function
-% function [check,stop,direction] = myeventfun(t,var,N)
-% check = var(N+1)>8; %prod(var(1:N) - 40);
-% stop = 1;  % Halt integration
-% direction = 0;
-% end
-
-function [check, stop, direction] = myeventfun(t, var, N)
-    persistent lastValue; % Persistent variable to store the last value
-    threshold = 1e-3;    % Define a threshold for change
-
-    if isempty(lastValue)
-        lastValue = var(N+1); % Initialize on the first call
-    end
-
-    % Check if the change is less than the threshold
-    change = norm(var(N+1) - lastValue);
-    check = change < threshold; % Event occurs when change is small
-
-    % Update lastValue for the next call
-    lastValue = var(N+1);
-
-    stop = 1;  % Halt integration
-    direction = 0; % No specific direction for the event
+function [check,stop,direction] = myeventfun(t,var,N)
+check = var(N+1)>10; %prod(var(1:N) - 40);
+stop = 1;  % Halt integration
+direction = 0;
 end
+
+% function [check, stop, direction] = myeventfun(t, var, N)
+%     persistent lastValue; % Persistent variable to store the last value
+%     threshold = 1e-3;    % Define a threshold for change
+% 
+%     if isempty(lastValue)
+%         lastValue = var(N+1); % Initialize on the first call
+%     end
+% 
+%     % Check if the change is less than the threshold
+%     change = norm(var(N+1) - lastValue);
+%     check = change < threshold; % Event occurs when change is small
+% 
+%     % Update lastValue for the next call
+%     lastValue = var(N+1);
+% 
+%     stop = 1;  % Halt integration
+%     direction = 0; % No specific direction for the event
+% end

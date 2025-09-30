@@ -12,9 +12,9 @@ warning off
 %% Parameters
 
 eta = 10; % adaptive parameters
-alpha = -1.2; %5.236; 1.67; 1.0472; % phase shift.
+alpha = pi/2; %5.236; 1.67; 1.0472; % phase shift.
 
-EPS = 0.04;
+EPS = 0.01;
 
 ome_start = -4;
 % ome1 = -3.4;
@@ -50,21 +50,16 @@ opts = odeset('RelTol',1e-10,'AbsTol',1e-10,'Events',@(t,var)myeventfun(t,var));
 odefun = @(t,var)Adaptive_phase_ode(var,par);
 
 %%
-res_scan = 30;
+res_scan = 300;
 phi_scan = linspace(0, 2*pi-0.01, res_scan);
-mu_scan  = linspace(-1, 13, res_scan);
+mu_scan  = linspace(-4, 14, res_scan);
 color_mat = zeros(res_scan,res_scan);
 tol = 1e-2;
 
 for ind_phi = 1: res_scan
     for ind_mu = 1: res_scan
-        if mu_scan(ind_mu)<=2.74 || phi_scan(ind_phi) <= 3.2
-            Tend = 150;
-        else 
-            Tend = 92;
-        end
         initcond_m = [phi_scan(ind_phi), mu_scan(ind_mu)];
-        [t,var] = ode45(odefun,[0 300],initcond_m,opts_noevents);
+        [t,var] = ode45(odefun,[0 50],initcond_m,opts_noevents);
         endpoint_mu = var(end,2);
         crit = abs(endpoint_mu -  mu_e1);
         if endpoint_mu <5 %crit <= tol
@@ -89,8 +84,8 @@ hold on
 pp = pcolor(mu_scan, phi_scan, color_mat);
 pp.LineStyle = 'none';
 pp.FaceAlpha = 0.1;
-% colormap ([1 1 1; 0.6 0.1 0.2])
-% colormap ([1 1 1; 0 0 0])
+colormap ([1 1 1; 0.6 0.1 0.2])
+colormap ([1 1 1; 0 0 0])
 colormap([1,0,0; 1, 1, 1])
 % % stable manifold of the saddel
 % initcond_m = [phi_e2 mu_e2] - 0.0001.*[1 0];

@@ -6,6 +6,7 @@
 clear
 warning off
 % Colour-blind friendly colour
+addpath('../')
 [red,yellow,green,blue ] = ...
     Colour_blind_friendly_colours();
 %% Parameters
@@ -69,8 +70,8 @@ potential_func_m = @(mu)( (mu^2/2) - a*mu);
 
 %% shading matrix 
 
-res_mu = 100;
-res_x = 100;
+res_mu = 10;
+res_x = 10;
 
 mu_arr = linspace(-5,5,res_mu);
 x_arr = linspace(-5,5,res_x);

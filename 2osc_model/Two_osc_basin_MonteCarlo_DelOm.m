@@ -22,17 +22,17 @@ opts = odeset('RelTol',1e-5,'AbsTol',1e-5,...
 
 %% simulations
 
-Eps = 0.07;
+Eps = 0.05;
 tend = 150;
 
 res_Del = 100;
 
-Del_arr = linspace(0,5,res_Del);
+Del_arr = linspace(0,2.5,res_Del);
 basin_volume_l = zeros(size(Del_arr));
 basin_volume_e = zeros(size(Del_arr));
 basin_volume_n = zeros(size(Del_arr));
 
-number_of_simulations = 100000;
+number_of_simulations = 10000;
 
 rr = rand(number_of_simulations, 3);
 
@@ -78,7 +78,7 @@ for ind_Del = 1:res_Del
     disp(res_Del - ind_Del)
     
 end
-save("Basin_vul_2osc_eps0p06_vary_ome.mat")
+save("Basin_vul_2osc_eps0p05_vary_ome.mat")
 toc
 %% plotting
 figure(8);

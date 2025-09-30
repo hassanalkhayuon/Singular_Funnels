@@ -25,7 +25,7 @@ opts = odeset('RelTol',1e-10,'AbsTol',1e-10,...
 %% simulations
 
 EPS_res = 50;
-EPS_arr = linspace(1e-3,1e-1,EPS_res);
+EPS_arr = linspace(1e-2,1e-1,EPS_res);
 
 % the volume of the periodic orbit 
 basin_volume = zeros(size(EPS_arr));
@@ -51,7 +51,7 @@ for ind_EPS = 1:EPS_res
 
         phi1_init = rr(1).*2.*pi; 
         phi2_init = rr(2).*2.*pi; 
-        mu_init = rr(3)*10 - 200; 
+        mu_init = rr(3)*10 - 10; 
 
         initcond = [phi1_init; mu_init];
 

@@ -18,7 +18,7 @@ eta = 10; % adaptive parameters
 alpha = pi/2; % phase shift.
 kappa = 1;
 
-Eps = 0.07;
+Eps = 0.1;
 
 %% Finding the equilirbrium solutions
 
@@ -26,6 +26,7 @@ red_Del = 100;
 Del_arr = linspace(0,1,red_Del);
 
 e_temp = [1.0307; 1.0307; 4.8576];
+% e_temp = [1.0307; 5; 4.8576];
 e_mat = NaN(3,red_Del);
 eig_val = NaN(3,red_Del);
 
@@ -50,8 +51,8 @@ opts_ode = odeset('RelTol',1e-5,'AbsTol',1e-5,'Events',...
 phi1_init = c;
 tend = 10/Eps;
 
-res = 150; 
-mu_scan = linspace(-5,5,res);
+res = 1000; 
+mu_scan = linspace(-0.7,4.5,res);
 phi2_scan = linspace(0,2*pi,res);
 tic
 % define odefun
@@ -90,13 +91,15 @@ toc
 % plot(t, mod(var(:,2),2*pi),'r.')
 %% plotting 
 figure
+hold on
 % subplot(2,2,1)
-pp = pcolor(mu_scan,phi2_scan,basin_mat1);
-pp.LineStyle = 'none';
-pp.FaceAlpha = 1;
+% pp = pcolor(mu_scan,phi2_scan,basin_mat1);
+% pp.LineStyle = 'none';
+% pp.FaceAlpha = 0.3;
 % colormap ([1 1 1; 0.6 0.1 0.2])
-colormap ([1 1 1; 0 0 0; 0.5 0.5 0.5])
-
+colormap ([0.86,0.02,0.05; 1 1 1])
+contour(mu_scan, phi2_scan, basin_mat1,...
+    'LineColor', 'k','LevelStep',1,'LineWidth',2)
 
 %% event function
 function [check,stop,direction] = myeventfun(t,var,N)
